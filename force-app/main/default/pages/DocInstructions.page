@@ -1,0 +1,8 @@
+<apex:page title="Documents" controller="DocInstructionsController" applyBodyTag="false"  docType="html-5.0" showHeader="false">
+    <apex:slds /> 
+    <div class="slds-scope">
+        <p class="slds-text-heading--label slds-m-bottom--small">
+      		When Downloading a document the name and type of document is required.
+    	</p>
+    </div>
+</apex:page>
