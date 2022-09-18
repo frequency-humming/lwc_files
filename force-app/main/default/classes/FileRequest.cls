@@ -3,7 +3,7 @@ public with sharing class FileRequest {
     public static String makeRequest(String fileName){
 		System.debug('in the callout class');
         system.debug(fileName);
-        String endpoint = 'https://nodjs-files.onrender.com/testing';
+        String endpoint = 'https://nodjs-files.onrender.com/testtest';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
@@ -12,23 +12,22 @@ public with sharing class FileRequest {
         request.setHeader('Content-Type','application/x-www-form-urlencoded');
         request.setHeader('x-api-key','california');
         HttpResponse response = http.send(request);
-        System.debug('request: '+request.getBody());
+        System.debug('request: '+response.getBody());
         // Parse the JSON response
         if(response.getStatusCode() != 200) {
             System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
-            //return response.getStatus();
+            return response.getBody();
         } else {
-            Blob data = response.getBodyAsBlob();
-            //String foo = response.getBody();
-            String file = EncodingUtil.base64Encode(data);
+            String foo = response.getBody();
+            Blob decoded = EncodingUtil.base64Decode(foo);
             ContentVersion cv = new ContentVersion();
-            cv.VersionData = data;
-            cv.Title = 'dashing.pdf';
-            cv.PathOnClient = 'dashing.pdf';
+            cv.VersionData = decoded;
+            cv.Title = fileName;
+            cv.PathOnClient = fileName;
             insert cv;
-            return file;
+            ID contentId = cv.Id;
+            return contentId;
         }
-        return 'cv';
     }
         
     public static String postRequest(String base64,String name){

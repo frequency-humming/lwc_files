@@ -70,7 +70,7 @@ export default class Files extends LightningElement {
     }
 
     imagePreview(e) {
-        const blob = new Blob([e], { type: "application/pdf" });
+        const blob = new Blob([e], { type: 'application/pdf' });
         const blobURL = URL.createObjectURL(blob);
         this.pic = blobURL;
     }
@@ -87,9 +87,17 @@ export default class Files extends LightningElement {
     }
     handleSearch(event){
         requestFile({filename:this.fileName}).then(result=>{
-            console.log('in the result '+typeof result);
-            const decoded = atob(result);
-            this.imagePreview(decoded);
+            if(result.includes('Invalid')){
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: `Error finding the file`,
+                        variant: 'error'
+                    }),
+                );
+            } else {
+                this.pic = `/sfc/servlet.shepherd/document/download/${result}`;
+            }
         });
     }
 

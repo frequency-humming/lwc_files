@@ -9,7 +9,6 @@ public with sharing class FileUploaderClass {
 
   @AuraEnabled
   public static String retrieveFile(String filename) {
-    system.debug('in the apex class'+filename);
     String res = retrieveRequest(filename);
     if (res == null) { return null; }
       return res;
@@ -21,8 +20,12 @@ public with sharing class FileUploaderClass {
   }
 
   private static String retrieveRequest(String filename){
-    system.debug('in the apex class'+filename);
     String response = FileRequest.makeRequest(filename);
-    return response;
+     System.debug(response);
+    if(String.isBlank(response) || response.contains('Invalid')){
+    	return 'Invalid File';
+    }
+    String DocId = [SELECT ContentDocumentId from ContentVersion WHERE ID = :response].ContentDocumentId;
+    return DocId;
   }
 }
