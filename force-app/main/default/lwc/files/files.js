@@ -97,6 +97,8 @@ export default class Files extends LightningElement {
                 );
             } else {
                 this.pic = `/sfc/servlet.shepherd/document/download/${result}`;
+                let title = `File downloaded successfully!!`;
+                this.toast(title);
             }
         });
     }
