@@ -14,6 +14,7 @@ export default class Files extends LightningElement {
                     {label:'PNG',value:'png'}];
     fileType = ' ';
     fileName;
+    loading = false;
 
     openfileUpload(event) {
         
@@ -86,6 +87,7 @@ export default class Files extends LightningElement {
         this.fileName = this.name.concat('.',this.fileType);
     }
     handleSearch(event){
+        this.loading = true;
         requestFile({filename:this.fileName}).then(result=>{
             if(result.includes('Invalid')){
                 this.dispatchEvent(
@@ -100,6 +102,7 @@ export default class Files extends LightningElement {
                 let title = `File downloaded successfully!!`;
                 this.toast(title);
             }
+            this.loading = false;
         });
     }
 

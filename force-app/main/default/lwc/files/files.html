@@ -19,6 +19,7 @@
             </div>
         </lightning-card>
     </template>
+    <template if:false={loading}>
         <lightning-card title="Search Documents" icon-name="custom:custom14">
             <div class="slds-var-p-around_medium lgc-bg">
                 <lightning-input type="text" label="Name of the File" name="name" value={name} onchange={handleChange}></lightning-input>
@@ -35,4 +36,8 @@
                 <lightning-button variant="brand" label="submit" title="Submit" onclick={handleSearch} class="slds-align_absolute-center"></lightning-button>
             </div>
         </lightning-card>
+    </template>
+    <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+    </template>
 </template>
