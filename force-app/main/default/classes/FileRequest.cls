@@ -3,11 +3,11 @@ public with sharing class FileRequest {
     public static String makeRequest(String fileName){
 		System.debug('in the callout class');
         system.debug(fileName);
-        String endpoint = 'https://nodjs-files.onrender.com/testtest';
+        String path = '/testtest';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
-        request.setEndpoint(endpoint);
+        request.setEndpoint('callout:nodejsapi'+path);
   		request.setBody('name='+fileName);
         request.setHeader('Content-Type','application/x-www-form-urlencoded');
         request.setHeader('x-api-key','california');
