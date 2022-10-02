@@ -3,7 +3,7 @@ public with sharing class FileRequest {
     public static String makeRequest(String fileName){
 		System.debug('in the callout class');
         system.debug(fileName);
-        String path = '/testtest';
+        String path = '/testing';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
@@ -18,8 +18,9 @@ public with sharing class FileRequest {
             System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
             return response.getBody();
         } else {
-            String foo = response.getBody();
-            Blob decoded = EncodingUtil.base64Decode(foo);
+            //String foo = response.getBody();
+            //Blob decoded = EncodingUtil.base64Decode(foo);
+            Blob decoded = response.getBodyAsBlob();
             ContentVersion cv = new ContentVersion();
             cv.VersionData = decoded;
             cv.Title = fileName;

@@ -1,0 +1,31 @@
+<apex:component controller="DocInstructionsController">
+  
+     <apex:pageBlock >
+         <apex:pageBlockTable value="{!cpu}"  var="orglimit">
+            <apex:column value="{!orglimit.cpuTime} milliseconds">
+                <apex:facet name="header">CPU Time</apex:facet>
+            </apex:column>
+            <apex:column value="{!orglimit.cpuLimit} milliseconds">
+                <apex:facet name="header">CPU Limit</apex:facet>
+            </apex:column>
+            <apex:column value="{!orglimit.heapSize} bytes">
+                <apex:facet name="header">Heap Size</apex:facet>
+         	</apex:column>
+             <apex:column value="{!orglimit.heapLimit} bytes">
+                <apex:facet name="header">Heap Limit</apex:facet>
+         	</apex:column>
+        </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!Limits}"  var="limit">
+            <apex:column value="{!limit.Name}">
+                <apex:facet name="header">API Name</apex:facet>
+            </apex:column>
+            <apex:column value="{!limit.Value}">
+                <apex:facet name="header">API Usage</apex:facet>
+            </apex:column>
+            <apex:column value="{!limit.Limit}">
+                <apex:facet name="header">API Limit</apex:facet>
+         	</apex:column>
+        </apex:pageBlockTable>        
+    </apex:pageBlock>
+    
+</apex:component>
