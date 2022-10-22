@@ -81,4 +81,26 @@ public with sharing class FileRequest {
             return res.getBody();
         }
     }
+    public static String sendFileRequest(String url,String fileName){
+		System.debug('in the callout class');
+        system.debug(fileName+' url : '+url);
+        String path = '/testingpattern';
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod('POST');
+        request.setEndpoint('callout:nodejsapi'+path);
+  		request.setBody('filename='+fileName+'&url='+url);
+        request.setHeader('Content-Type','application/x-www-form-urlencoded');
+        request.setHeader('x-api-key','california');
+        HttpResponse response = http.send(request);
+        System.debug('request: '+response.getBody());
+        // Parse the JSON response
+        if(response.getStatusCode() != 200) {
+            System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
+            return response.getBody();
+        } else {
+            system.debug('in the else condition');
+            return 'Completed';
+        }
+    }
 }

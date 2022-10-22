@@ -1,6 +1,7 @@
 import { LightningElement,api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import uploadFile from '@salesforce/apex/FileUploaderClass.uploadFilebyReference';
+import sendFile from '@salesforce/apex/FileUploaderClass.sendFilebyReference';
 
 export default class FileUpload extends LightningElement {
 
@@ -10,9 +11,10 @@ export default class FileUpload extends LightningElement {
                     {label:'JPG',value:'jpg'},
                     {label:'PNG',value:'png'}];
     loading = false;
+    filename;
+    path;
 
     openfileUpload(event) {
-        
         const file = event.target.files[0];
         const ext = file.name.split('.')[1];
         if(this.accept.includes(ext)){
@@ -24,7 +26,9 @@ export default class FileUpload extends LightningElement {
                     'filename': file.name,
                     'base64': base64
                 }
-            }  
+                console.log('1');
+            }
+            console.log('2')  
         } else {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -50,7 +54,15 @@ export default class FileUpload extends LightningElement {
                     }),
                 );
             } else {
-                console.log(result);
+                let data = result.split(',');
+                this.path = data[0];
+                this.filename = data[1];
+                console.log(data);
+                console.log(this.path);
+                console.log(this.filename);
+                sendFile({url:this.path,filename:this.filename}).then(result => {
+                    console.log(result);
+                });
                 let title = `${filename} uploaded successfully!!`;
                 this.toast(title);
             }
@@ -63,12 +75,6 @@ export default class FileUpload extends LightningElement {
             variant:'success'
         });
         this.dispatchEvent(toastEvent);
-    }
-
-    imagePreview(e) {
-        const blob = new Blob([e], { type: 'application/pdf' });
-        const blobURL = URL.createObjectURL(blob);
-        this.pic = blobURL;
     }
     
 }
