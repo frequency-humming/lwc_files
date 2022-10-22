@@ -1,6 +1,7 @@
 public with sharing class FileRequest {
 
     public static String makeRequest(String fileName){
+
         String path = '/testing';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -66,7 +67,6 @@ public with sharing class FileRequest {
           req.setEndpoint(endpoint);
           req.setBodyAsBlob(bodyBlob);
           req.setTimeout(120000);
-
           Http http = new Http();
           HTTPResponse res = http.send(req);
          if(res.getStatusCode() != 200) {
@@ -88,7 +88,6 @@ public with sharing class FileRequest {
         request.setHeader('x-api-key','california');
         HttpResponse response = http.send(request);
         System.debug('request: '+response.getBody());
-        // Parse the JSON response
         if(response.getStatusCode() != 200) {
             System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
             return response.getBody();

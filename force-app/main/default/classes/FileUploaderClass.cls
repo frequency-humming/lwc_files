@@ -31,7 +31,6 @@ public with sharing class FileUploaderClass {
     }
     if(contentId!=null){
         String Path = '/services/data/v56.0/sobjects/ContentVersion/'+contentId+'/VersionData,';
-        system.debug('path '+Path); 
         return path+filename;
     }else{
           return 'Invalid File Request';
