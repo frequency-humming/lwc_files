@@ -1,8 +1,6 @@
 public with sharing class FileRequest {
 
     public static String makeRequest(String fileName){
-		System.debug('in the callout class');
-        system.debug(fileName);
         String path = '/testing';
         Http http = new Http();
         HttpRequest request = new HttpRequest();
@@ -32,7 +30,6 @@ public with sharing class FileRequest {
     }
         
     public static String postRequest(String base64,String name){
-          System.debug('in the callout class');
           String endpoint = 'https://nodjs-files.onrender.com/test';
           Blob file_body = EncodingUtil.base64Decode(base64);
           String file_name = name;
@@ -82,8 +79,6 @@ public with sharing class FileRequest {
         }
     }
     public static String sendFileRequest(String url,String fileName){
-		System.debug('in the callout class');
-        system.debug(fileName+' url : '+url);
         String path = '/testingpattern';
         Http http = new Http();
         HttpRequest request = new HttpRequest();

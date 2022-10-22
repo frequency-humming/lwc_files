@@ -38,8 +38,8 @@ public with sharing class FileUploaderClass {
   }
   @AuraEnabled
   public static String sendFilebyReference(String url,String filename){
-    system.debug('in the last method');
   	String res = FileRequest.sendFileRequest(url,filename);
+    if (res == null) { return 'Invalid Request'; }
     return res;
   }
 
@@ -50,7 +50,6 @@ public with sharing class FileUploaderClass {
 
   private static String retrieveRequest(String filename){
     String response = FileRequest.makeRequest(filename);
-     System.debug(response);
     if(String.isBlank(response) || response.contains('Invalid')){
     	return 'Invalid File';
     }
