@@ -1,18 +1,17 @@
 <template>
-    <lightning-card title="Upload Documents" icon-name="custom:custom14" horizontal-align="center" vertical-align="end">
+    <lightning-card title="Upload Documents (Directly)" icon-name="custom:custom14" horizontal-align="center"
+        vertical-align="end">
         <div class="slds-m-around_medium slds-align_absolute-center">
-            <lightning-input 
-                type="file" 
-                accept=".png,.jpg,.pdf"
-                onchange={openfileUpload}>
+            <lightning-input type="file" accept=".png,.jpg,.pdf" onchange={openfileUpload}>
             </lightning-input>
         </div>
         <div class="slds-m-around_medium">
-            <lightning-button variant="brand" label="submit" title="Submit" onclick={handleClick} class="slds-align_absolute-center"></lightning-button>
+            <lightning-button variant="brand" label="submit" title="Submit" onclick={handleClick}
+                class="slds-align_absolute-center"></lightning-button>
         </div>
     </lightning-card>
     <template if:true={pic}>
-        <lightning-card>
+        <lightning-card horizontal-align="center">
             <div>
                 <a href={pic} download>Download</a>
                 <a href={pic} target=”_blank”>Open</a>
@@ -22,22 +21,20 @@
     <template if:false={loading}>
         <lightning-card title="Search Documents" icon-name="custom:custom14">
             <div class="slds-var-p-around_medium lgc-bg">
-                <lightning-input type="text" label="Name of the File" name="name" value={name} onchange={handleChange}></lightning-input>
-                <lightning-combobox class="slds-align-middle"
-                    label="Type of file"
-                    name = "type"
-                    value={fileType}
-                    placeholder= "Types"
-                    options={fileOptions}
-                    onchange={handleChange}>
+                <lightning-input type="text" label="Name of the File" name="name" value={name} onchange={handleChange}>
+                </lightning-input>
+                <lightning-combobox class="slds-align-middle" label="Type of file" name="type" value={fileType}
+                    placeholder="Types" options={fileOptions} onchange={handleChange}>
                 </lightning-combobox>
             </div>
             <div class="slds-var-m-around_medium">
-                <lightning-button variant="brand" label="submit" title="Submit" onclick={handleSearch} class="slds-align_absolute-center"></lightning-button>
+                <lightning-button variant="brand" label="submit" title="Submit" onclick={handleSearch}
+                    class="slds-align_absolute-center"></lightning-button>
             </div>
         </lightning-card>
     </template>
     <template if:true={loading}>
         <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
     </template>
+    <c-file-upload></c-file-upload>
 </template>
