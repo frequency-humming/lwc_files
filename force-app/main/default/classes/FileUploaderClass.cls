@@ -12,7 +12,8 @@ public with sharing class FileUploaderClass {
     String res = retrieveRequest(filename);
     if (res == null) { return null; }
       return res;
-   }
+  }
+
   @AuraEnabled
   public static String uploadFilebyReference(String base64, String filename) {
     ID contentId;

@@ -11,7 +11,6 @@ public with sharing class FileRequest {
         request.setHeader('x-api-key','california');
         HttpResponse response = http.send(request);
         System.debug('request: '+response.getBody());
-        // Parse the JSON response
         if(response.getStatusCode() != 200) {
             System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
             return response.getBody();
