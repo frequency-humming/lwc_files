@@ -48,7 +48,7 @@ export default class FileUpload extends LightningElement {
         uploadFile({ base64, filename}).then(result=>{
             this.fileData = null;
             if(result.includes('Invalid')){
-                this.parseResponse('Max Size is 2mb');
+                this.parseResponse('Error saving the file');
             } else {
                 let data = result.split(',');
                 this.path = data[0];
