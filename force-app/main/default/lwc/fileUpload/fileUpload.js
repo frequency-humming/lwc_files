@@ -68,6 +68,8 @@ export default class FileUpload extends LightningElement {
     }
 
     parseResponse(result){
+        this.loading = false;
+        this.temp = null;
         this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Error',
