@@ -13,6 +13,7 @@ export default class FileUpload extends LightningElement {
     loading = false;
     filename;
     path;
+    temp = ' ';
 
     openfileUpload(event) {
         const file = event.target.files[0];
@@ -26,9 +27,9 @@ export default class FileUpload extends LightningElement {
                     'filename': file.name,
                     'base64': base64
                 }
-                console.log('1');
+                this.template.querySelector('h2').className='temp';
+                this.temp = file.name;
             }
-            console.log('2')  
         } else {
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -42,31 +43,38 @@ export default class FileUpload extends LightningElement {
     }
     
     handleClick(){
+        this.loading = true;
         const {base64, filename} = this.fileData;
         uploadFile({ base64, filename}).then(result=>{
             this.fileData = null;
             if(result.includes('Invalid')){
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Error',
-                        message: `Error uploading file - Max Size is 2mb`,
-                        variant: 'error'
-                    }),
-                );
+                this.parseResponse('Max Size is 2mb');
             } else {
                 let data = result.split(',');
                 this.path = data[0];
                 this.filename = data[1];
-                console.log(data);
-                console.log(this.path);
-                console.log(this.filename);
                 sendFile({url:this.path,filename:this.filename}).then(result => {
-                    console.log(result);
-                });
-                let title = `${filename} uploaded successfully!!`;
-                this.toast(title);
+                    if(result.includes('Invalid')){
+                        this.parseResponse(result);
+                    }else{
+                        this.loading = false;
+                        let title = `${filename} uploaded successfully!!`;
+                        this.toast(title);
+                        this.temp = null;
+                    }
+                });       
             }
         });
+    }
+
+    parseResponse(result){
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Error',
+                message: `Error uploading file - ${result}`,
+                variant: 'error'
+            }),
+        );
     }
 
     toast(title){

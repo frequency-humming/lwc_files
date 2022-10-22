@@ -1,0 +1,4 @@
+.temp {
+    border: 4px solid rgb(243, 189, 224);
+    border-radius: var(--lwc-borderRadiusSmall, 0.125rem);
+}

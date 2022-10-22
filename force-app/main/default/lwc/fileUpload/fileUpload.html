@@ -6,6 +6,9 @@
                 <lightning-input type="file" accept=".png,.jpg,.pdf" onchange={openfileUpload}>
                 </lightning-input>
             </div>
+            <div class="slds-m-around_medium slds-align_absolute-center">
+                <h2>{temp}</h2>
+            </div>
             <div class="slds-m-around_medium">
                 <lightning-button variant="brand" label="submit" title="Submit" onclick={handleClick}
                     class="slds-align_absolute-center"></lightning-button>
